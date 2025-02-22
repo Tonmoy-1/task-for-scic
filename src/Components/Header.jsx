@@ -1,18 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Importing useNavigate for routing
 import { FcGoogle } from "react-icons/fc";
 import { LogOut } from "lucide-react";
 import useAuth from "../Hooks/useAuth";
 
 export default function Header() {
-  const {
-    user,
-
-    loading,
-
-    signInWithGoogle,
-    logOut,
-  } = useAuth();
+  const { user, loading, signInWithGoogle, logOut } = useAuth();
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   // Toggle Dark/Light mode
@@ -35,51 +28,44 @@ export default function Header() {
   }, [isDarkMode]);
 
   return (
-    <header className="flex items-center justify-between px-6 py-4 bg-gray-100 dark:bg-gray-800 shadow-md">
+    <header className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg rounded-lg">
       {/* Logo and Title */}
       <Link to="/" className="flex items-center gap-2 no-underline">
-        <img src="/TickTask.svg" alt="TickTask" className="h-10 w-10" />
-        <h1 className="text-xl font-semibold text-gray-800 dark:text-white">
-          TickTask
-        </h1>
+        <h1 className="text-2xl font-semibold tracking-wide">Trakku</h1>
       </Link>
 
       {/* Right side actions: Dark Mode Toggle and Authentication */}
       <div className="flex items-center gap-4">
         <button
           onClick={toggleDarkMode}
-          className="text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition"
+          className="text-gray-200 hover:text-white transition duration-300 px-4 py-2 rounded-full focus:outline-none"
         >
-          {isDarkMode ? "Light Mode" : "Dark Mode"}
+          {isDarkMode ? "🌞 Light Mode" : "🌙 Dark Mode"}
         </button>
 
         {user ? (
           <button
             onClick={logOut}
-            size="sm"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition duration-300"
             disabled={loading}
           >
             {loading ? (
-              <span className="animate-spin text-gray-600 dark:text-gray-300">
-                ...
-              </span>
+              <span className="animate-spin text-white">...</span>
             ) : (
-              <LogOut className="h-5 w-5" />
+              <>
+                <LogOut className="h-5 w-5" />
+                Logout
+              </>
             )}
-            Logout
           </button>
         ) : (
           <button
             onClick={signInWithGoogle}
-            size="sm"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition duration-300"
             disabled={loading}
           >
             {loading ? (
-              <span className="animate-spin text-gray-600 dark:text-gray-300">
-                ...
-              </span>
+              <span className="animate-spin text-white">...</span>
             ) : (
               <>
                 <FcGoogle className="h-5 w-5" />
